@@ -9,7 +9,8 @@ export default class App extends Component {
       latitude: -33.454402,
       longitude: -70.560250,
       latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421
+      longitudeDelta: 0.0421,
+      name: 'Tu ubicación actual'
     },
     locationResult: null,
     corsList: [],
@@ -24,7 +25,8 @@ export default class App extends Component {
         return false
       })
       .then((res) => {
-        const corsList = res.map((map) => {
+        const corsList = res.map((map, i) => {
+          map.key = i
           map.cords[0].latitudeDelta = 0.0922
           map.cords[0].longitudeDelta = 0.0922
           return map;
@@ -94,10 +96,6 @@ export default class App extends Component {
               renderItem={({item}) => <TouchableHighlight key={item.id} onPress={() => this._onPress(item)} underlayColor='rgba(50, 69, 88, 0.8)'><Text style={styles.item}>{item.name}</Text></TouchableHighlight>}
             />
           </View>
-          <Button
-            title="Aceptar"
-            onPress={this._handleButtonPress}
-          />
         </View>
       </View>
     );
